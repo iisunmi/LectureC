@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main(void) {
+	int num = 0, flag=0, d;
+
+	for (int i = 0; i < 10; ++i) {
+		flag = 0; // 이걸 왜 썼는지 고민해보자..
+		num = rand()%9+1;
+		for (int k = 1; k < 3; k++) {
+			do {
+				d = rand() % 10; //0~9 10진 1자리값
+
+
+			} while (flag & (1<<d));
+			num = num * 10+d;
+			flag = flag | (1 << d);
+
+			//flag & (1<<d) : d를 사용한 적이 있냐없냐를 묻는 질문
+			//flag = flag | (1 << d); 사용한적이 있는지를 표시하는 법
+			printf("%d\n", num);
+		}
+
+		return 0;
+	}
+}
+
+
+
+/*중복없는 세 자리 정수를 10개 이상 출력하라
+조립 과정 : 10진수 정수, 각 자리값을 합쳐야함
+2진수 연산으로 각 자리 값의 사용 여부를 표시함
+
+do-while 문
+실행을 우선하고 실행된 결과에 따라 반복여부를 결정한다
+
+
+
+
+
+
+*/
