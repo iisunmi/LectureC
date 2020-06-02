@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main11(void) {
+	int leftdan ,unit=2;
+	int dan, v;
+	for (int bl = 0; bl < 3; bl++, leftdan += 3) {
+		leftdan += unit;
+		for (int row = 0; row < 9; ++row) {
+			v = row + 1;
+			for (int col = 0; col < unit; col++) {
+				dan = leftdan + col;
+				if (dan <= 9) {
+					printf("%d*%d=%d\t", dan, v, (dan * v));
+				}
+			}
+			printf("\n");
+		}
+
+		printf("-------\n");
+	}
+	return 0;
+}
