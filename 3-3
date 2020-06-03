@@ -1,0 +1,118 @@
+//요소번호찾기
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main1(void) {
+	int numbers[15] = { 2,1,3,40,5,62,7,70,9,10,25,24,13,133,17 };
+	int length = 15;
+	
+	/*
+	int min;
+	int max;
+	min = max = 0;
+		for (int i = 1; i < length; i++) {
+			if (numbers[min] > numbers[i]) {
+				min = i;
+			}  
+			if (numbers[max] < numbers[i]) {
+				max = i;
+			}
+		}
+	printf("Max:%d, Min:%d\n", numbers[max], numbers[min]);
+	*/
+
+	// 배열 요소들을 크기 순서대로 재배치 -정렬을 한다 sort
+	// 정렬방법=알고리즘
+	// 비교-교환 을 얼마나 최적화,빨리 정렬시킬 수 있냐가 핵심
+	int first = 0;// 첫번째 요소의 번호
+	int last=length-1;// 마지막 요소의 번호
+	 
+					  
+	//비교
+	for (int k = 0; k < 7; k++) {
+		int min =first; //요소번호 초기화
+		int max =first; //요소번호 초기화
+		for (int i = first+1; i <= last; i++) {
+			if (numbers[min] > numbers[i]) {
+				min = i;
+			}
+			if (numbers[max] < numbers[i]) {
+				max = i;
+			}
+		}
+
+		//교환//min과 first의 값이 교환되었다
+		int t = numbers[min];
+		numbers[min] = numbers[first];
+		numbers[first] = t;
+        t = numbers[max];
+		numbers[max] = numbers[last];
+		numbers[last] = t;
+
+		//정렬 후 출력
+		for (int i = 0; i < length; i++) {
+			printf(" %d", numbers[i]); //%6d: 6자리 간격으로 출력한다는 뜻
+		}
+
+		printf("\n");
+		++first;
+		--last;
+	}
+	return 0;
+}
+
+
+
+
+	/*
+	#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main(void) {
+	//길이 15인 정수형 1차 배열 선언
+	int numbers[15] = { 0 };
+	int length = 15; //sizeof(배열명)/sizeof(int);
+	//난수 발생 기준값 변경 ~ 굳이 안 해도 됨
+	srand((unsigned int)time(NULL));
+	// 모든 요소에 임의 정수를 저장하기
+	for (int i = length - 1; i >= 0; i--) {
+		numbers[i] = rand(); // 0~32656에서 정수값을 하나씩 저장
+		//rand() + or- 사용 가능
+	}
+	for (int i = 0; i < length; i++) {
+		printf(" %d", numbers[i]); //%6d: 6자리 간격으로 출력한다는 뜻
+	}
+	printf("\n");
+	return 0;
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//값찾기
+	배열 처리 시 기본 기능
+	int numbers[15] = { 0 };
+	int length = 15;
+	int min;
+	int max;
+	min = max = numbers[0];
+	//초기값 설정한 후에 보다 작은값, 보다 큰값 찾기
+	***값(요소)을 찾으려는건지, 요소번호를 찾으려는건지 잘 구분해서 코딩하기
+	for(int i=1; i<length;i++){
+	   if(min >numbers[i]){
+	      min = numbers[i];
+		  }   // 현재 젤 최소값이 numbers[i]이니까 이걸 min으로 보내준다는 뜻
+       if(max <numbers[i]){
+	      max = numbers[i];
+		  } 
+	}
+	printf("Max:%d, Min:%d\n",max, min); //최소값, 최대값이 얼마인지를 알아냄
+	*/
