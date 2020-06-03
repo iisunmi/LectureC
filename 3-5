@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main(void) {
+	char ch = 'A';
+	printf("size : %d\n", sizeof(ch)); // ch변수의 크기가 나온다
+	printf("address : %d\n", &(ch)); // 변수의 주소
+	printf("size : %d\n", sizeof(&ch));//주소의 크기
+
+	char* p;
+	printf("size : %d\n", sizeof(p)); // ch변수의 크기가 나온다
+	printf("address : %d\n", &(p)); // 변수의 주소
+	printf("size : %d\n", sizeof(&p));//주소의 크기
+
+	p = &ch;//ch변수의 주소를 저장한다
+	printf("%d\n",p); // 주소
+	printf("%d\n", *p); //이름/ ch 변수의 값//*p==ch
+	*p = 'B';
+	printf("%c\n", ch);
+
+	return 0;
+}
+
+	/*
+	//포인터 변수의 선언 : 자료형*변수명;
+	//포인터 변수에 저장된 주소에 어떤 유형이 있냐에 따라 선언하는 법에 차이가 있다.
+
+	char ch; // 문자한개를 저장하는 일반적인 변수
+	char* p1; // char 변수를 가리키는 포인터 변수
+	//캐릭터 변수 1개로 char 변수 여러 개를 처리할 수 있다 (배열처럼)
+	char** p2;
+	//char 형 변수를 가리키는 포인터 변수를 가리키는 포인터 변수(삼중 이하)
+	char* ap1[3]; // 포인터변수들을 요소로 하는 1차 배열
+	char    (*ap2)[3];//배열을 가리키는 배열 포인터변수/ap2가 변수임
+	char* (*ap3)[3]; 포인터배열을 가리키는 포인터
+
+	char (*fp)(void); // 함수를 가리키는 함수 포인터변수
+	char ;//함수 포인터 배열
+	return 0;
+}
+*/
