@@ -7,6 +7,8 @@ int main1(void) {
 	//sizeof(배열명)-길이와 크기를 판단하기 위한 연산, 가장 많이 쓰는 연산 (byte값)
 	printf(" size of array:%d\n", sizeof(score)); //배열명 출력
 	printf(" size of element:%d\n", sizeof(score[0])); //요소명 출력
+	
+	printf("long %d\n", sizeof(long)); long같은 자료형 길이도 알 수 있음
 
 	printf("%d\n", score); //배열의 주소가 아니라 0번(요소)의 주소이다.
 						 //메모리의 바이트 번호가 출력됨.
