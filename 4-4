@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int gValue = 10;
+extern int ext_value;//다른 소스파일에 정의된 전역변수의 사용
+static int internal_value; // 다른자가 전역변수사용하려고 오는걸 접근 막을수있다
+                           // 공개를 막아라
+
+int f2(){
+	static int static_value; // 지역변수에 static을 쓰면 없애지말고 지속적으로 사용하라
+	                         // 죽이는 것을 막아라
+	int v3 = 100;
+	return 0;
+}
+
+int f1() {
+	f2();
+	return 0;
+}
+
+int static_fn() {
+	static int cnt = 0;
+	cnt++;
+	return cnt;
+}
+int updateNumber(int param) {
+	param = param * 10;
+	return 0;
+}
+
+
+int main(int argc, char* argv[]) {
+	int cnt=2;
+
+	undateNumber(cnt);
+	printf("%d\n", cnt);
+
+	return 0;
+}
+
+
+
+int main1(int argc, char* argv[]) {
+	int v1 = 10;
+	int* p;
+
+	{
+		int v2 = 1000;
+		v1 = 20; 
+		v2 = 2000;
+		p = &v2;
+		printf("v2:%p\n", &v2);
+	}
+	printf("v2:%d\n", *p);
+	*p = 3000;
+	v3 = 3000;
+	printf("%p->%d\n", *p);
+
+	//포인터를 이용한 간접 참조 방식(변수가 있을때만)
+
+	return 0;
+}
