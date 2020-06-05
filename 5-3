@@ -1,0 +1,320 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h> // gohome 함수확인하기 .시간개념있으니까
+
+//data가 어떻게 되나. 여러개의 데이터 처리 시 반드시 하나를 지정하는 방법이 필요함 = 하나하나에 대한 표현이 필요함
+//각각의 자동차를 구별할수있게 표시
+struct _car {
+	int number;
+	double price;
+	time_t in; // 차가 들어오는시간
+	time_t out; // 차가 나가는 시간    
+	                  // 들어오고 나가는 시간 차이가 요금 결정
+	//unsigned in;  unsigned out; 시간은 음수가 없으니 언싸인
+	
+};
+typedef struct _car Car; //car형
+
+
+
+//Car를 여러 개 저장(주차)해야한다  = 배열 사용해야함을 인지하라. Car list[]; 작성하기
+Car list[20];  // 주차공간(차 20대 주차가능하다)
+int seq;
+int hasEmpty(void) { //전달하는건 없으니 ()에 void 작성, 반환은 있음(int 자리에 void가 아니면 반환이 있다는 뜻이다)
+	//비어있는 상태 표현법
+	for (int i = 0; i < 20; ++i) { // 구조체 list 안에 있는 멤버들을 파악하고, 그것들 중에 하나(0)를 빈것으로 만들자.(=정의한다)/ 그럼 0이 아니면 주차된 것?
+		if (list[i].number == 0) {//0이면 참이고 즉 빈 곳이다
+			return i;
+		}
+		
+	}
+	return -1; // 빈곳이 아니다   /////////////////뭔뜻이여? 완료.
+	//return 0; // 0이 반환되면 if절이 거짓이 됨. else로 가서 출력. 
+	            //0을 빈곳으로 반환해버리면 요소번호 0번이라고 한건지, 0값을 출력한건지 모름. 그래서 -1로 바꾸자
+}
+
+int goHome() {
+	//시간 계산 방법
+
+	//1번
+	time_t now = time(NULL);// time_t는 longlong이다. unsigned 는 못 써 4바이트 밖에 안되니/////////////////////이게뭐더라..
+	//printf("\nnow : %lld\n", now/(60*60*24));  //초단위의 시간값이 출력됨 그래서 (60*60*24)입력했음
+
+	struct tm tm;
+	localtime_s(&tm, (&now)); //포인터가 있는 구조체 ()에 포인터 즉 주소 작성
+	int h = tm.tm_hour;
+	int m = tm.tm_min;
+
+	if (h > 18) {
+		return 0;//퇴근시간이다
+	}
+	return 1; //퇴근시간이다   ////////////////////0이었는데 왜 1로 바꼈지 완료. 아래에 보면  while에 gohome함수 있음. 1이면 퇴근시간이라도 정의.
+}
+
+
+
+	/*
+
+	time_t now = time(NULL);// time_t는 longlong이다. unsigned 는 못 써 4바이트 밖에 안되니
+	//printf("\nnow : %lld\n", now/(60*60*24));  //초단위의 시간값이 출력됨 그래서 (60*60*24)입력했음
+
+
+	struct tm tm;
+	localtime_s(&tm, (&now)); //포인터가 있는 구조체 ()에 포인터 즉 주소 작성
+	int h = tm.tm_hour;
+	int m = tm.tm_min;
+	printf("%d시 %d분\n", h, m);
+	*/
+
+	//2번
+	//clock_t ct=clock(); // cpu의 실행시간(프로그램이 실행된지 얼마나 걸렸는지)을 출력해줌 그래서 0 또는 1 나옴
+	//printf("clock : %d\n", ct);
+	
+
+int main(int argc, char** argv) {
+	
+	//주차장, 난 주차장 관리자임
+	printf("주차장에 오신 걸 환영합니다^^\n");
+	do {
+		printf("[1]IN [2]OUT>");
+		// getchar(); : 키보드입력을 받는다는 뜻,  입력된 문자수 + 엔터키 포함해서 반복을 시행함 ex) 입력값이 123이면 엔터키 포함해서 4번 반복함
+		// getchar();getchar(); 엔터키를 불포함하여 반복시행함
+		char key = getchar(); getchar(); 
+		if (key == '1') {//1이면 차가 들어올 때의 할일을 출력해줌
+
+
+
+		//차가 들어오고 있음
+			printf("차가 들어오고 있습니다\n");
+
+			//주차장 내 빈 공간이 있으면 주차가능
+			printf("주차장 내 빈 공간이 있으면?");
+			if (hasEmpty() != -1) { //hasEmpty 가 반환한게 0이 아니면 참이니까 빈곳이다(= 주차할 수 있다)는 뜻
+				printf("주차가능합니다\n");
+				Car car; // 차가 들어올수있으니까 차타입을 만들어
+
+				printf("차량번호 > ");
+				//자동차번호판 키보드로 직접 입력하기, 4자리 정수받기 작성하기
+				scanf_s("%d",&car.number); // 주소를 주는 이유?
+                car.price = 1000.0;
+				car.in = time(NULL);
+
+
+				//주차시키기
+				list[seq] = car; // 0번 주차자리에 차정보를 저장하고 차를 주차했다 / 여러개의 주차자리가 있으니까 요소번호의 변수를 써야한다
+				++seq;
+
+
+			}
+
+			else {
+				printf("만차입니다. 주차 불가합니다.\n");
+			}
+		}
+
+		if (key == '2') {
+
+			//차가 나가고 있음
+			printf("차가 나갑니다.\n");
+			printf("차량번호 > ");
+			int num;
+			scanf_s("%d", &num);
+			Car car;
+			car.number = 0;
+			for (int i = 0; i < 20; i++) {
+				if (num == list[i]. number) {
+					car = list[i];
+					//차가 나갔으니 빈자리 생김
+					printf("차가 나갔으니 빈자리 생겼습니다.\n");
+					list[i]. number = 0; // 차가 나가면(빈 곳이 되면) 0이라고 한다
+					break;
+				}
+			}
+			if(car.number != 0){
+				//요금 내야함
+				printf("요금 내십시오.\n");
+				car.out = time(NULL); // 차가 나가는 시간 과 들어오는 시간 차이를 구해야함
+				car.price += 5000.0; // 가격은 십분당 오천원으로 정의
+				printf("요금:%lf\n", car.price);
+			}
+
+			
+
+			
+		}
+	} while (goHome());   //0을 반환하는 함수를 만들어라. 0이면 거짓,퇴근시간이다  1이면참          //(0)//퇴근시간이 아니면)
+	//퇴근하기 위해 주차장 잠금
+	printf("퇴근 시간이면 주차장 잠금\n");
+
+	return 0;
+}
+
+/*
+typedef struct _car Car; //car형
+typedef struct _car* PCar; //대문자 P는 포인터구나 라고 생각하라
+typedef struct _car ACar[12]; //배열이구나, ACar는 임의의 표현
+
+							 //printf("%d\n", sizeof(list));  하면 192 사이즈가 나옴   
+
+int main05(int argc, char** argv) {// 이 코드의 동작을 이해하면 기초 이해 완료염// 근데 이해안됨~
+	                             //-858993460,-92559631349317830736831783200707727132248687965119994463780864.000000 출력값
+	                             //출력값 왜이럴까?
+	                             //
+	ACar list;                                                //acar는 배열을 선언한거임
+	PCar now = &list[0];  //&list[0] : list[0]의 주소         //pcar는  *now를 선언한거임
+	                      
+	Car temp;
+
+	
+	temp = list[0]; //0번 구조체를 temp에 복사한 것이다
+	temp.number = 11; //temp는 구조체이니까 .number를 붙ㅇ여
+	temp.price = 1000.0;
+
+	printf("%d,%lf\n", now->number, now->price); // now는 ~~~니까 
+
+
+
+	return 0;
+}
+
+
+
+
+
+int main04(int argc, char** argv) {
+	struct _car t;
+	t.number = 1003;
+	t.price = 1000.0;
+
+	//주소 -> 멤버명 작성
+	(&t)->number = 2003;
+
+	//포인터 변수는 주소다
+	struct _car* cp;
+	cp = &t;
+	cp->price = 2000.0;  //여기서 cp가 주소라는 걸 인지해야함. 
+
+	(*cp).number = 3003;//(*cp)는 이름이다.
+	// .과 ->를 사용하는게 구분이 되지않는다면 ->를 많이 활용하자
+
+
+}
+
+*/
+
+
+/*
+
+
+#pragma pack(1)//  뜻 : 떨어트리지 말고 1바이트 간격으로 붙여서 출력해줘라, 
+                   구조체안에 여러멤버들의 각각 다른 크기들을 공간을 붙혀서 꽉채운 형태의 구조체를 만들어라.
+                   멀티미디어 파일을 다룰때구조체를 일치시켜야하는 문제가 많이 발생함. 정확히 알고 이어양해 
+
+
+typedef struct _rgb_color{
+	unsigned char blue : 2;
+	unsigned char green : 4;
+	unsigned char red : 2;
+}RGB;
+//비트 필드 구조체 : 자료형을 일치시켜야하고, 비트수로 제어한다 < c언어의 고급기술 > 파일의 포맷에 활용
+
+//자료구조 ~ 자기 참조 구조체// 포인터가 있을때 이 포인터의 왼쪽 파일이 구조체의 유형과 동일할 때를 말함
+struct _node {
+	int data;
+	struct _node* prev;
+	struct _node* next;
+
+
+};
+
+
+int main(void) {
+	printf("%d \n", sizeof(RGB));
+	//구조체의 크기를 실제 크기로 맞춘다
+
+
+	return 0;
+
+}
+
+
+*/
+
+
+
+
+/*
+
+typedef struct car {// struct tagName 작성하기
+	//member // 구조체 정의하기///////////////////////////////////////////////////
+	int code;
+	char name[80];
+	double price;
+}CAR, UCAR, ICAR; // tagName 작성하기
+
+
+#define Car struct car //1번 방법
+
+typedef struct car Car; //2번 방법
+
+typedef unsigned int _unit;  //2번의 또다른 예시,, unsigned를 _unit으로 축약할래!
+
+int main(int argc, char** argv) {
+	struct car ic;
+	//구조체형 이름을 짧게 또는 다르게 사용하고 싶다
+	Car mycar; // 줄여서 이렇게 쓰길 원한다! 어떻게 하지? 두 가지 방법 있음
+	            //1. #define사용해서문자를 치환하기
+	            //2. typedef 를 사용하여 자료형명을 새로 등록하기  car인데  Car를 새로 추가해주세용
+	            //3. 구조체 정의한 부분에 작성하기
+
+	Car mycar;
+
+	printf("%p vs %p\n", myCar.name, uCar.name);
+	printf("{%d, %s, %lf}\n", uCar.code, uCar.name, uCar.price);
+
+
+	return 0;
+}
+
+*/
+
+/*
+
+int main2(int argc, char** argv) {
+	struct car myCar = { 1,"Grandure",1000.10 };
+	//구조체 변수를 복사한다
+
+	struct car uCar = myCar;
+
+	printf("%p vs %p\n", myCar.name, uCar.name);
+	printf("{%d, %s, %lf}\n", uCar.code, uCar.name, uCar.price);
+
+
+	return 0;
+}
+
+
+
+
+int main11(int argc, char** argv) {
+	struct car myCar = {1,"Grandure",1000.10};
+
+	printf("{%d, %s, %lf}\n",myCar.code, myCar.name, myCar.price);
+
+
+	return 0;
+}
+*/
+
+
+/*구조체
+사용자 정의형(복합형) 구조체, 변수들의 모임
+1. 구조체형 정의
+2. 구조체형 변수 선언
+3. 구조체형 변수 안에 멤버들을 처리 /함수를 제외한 것들을 멤버로 처리
+멤버 접근하는(사용하는) 방법
+1-1, 변수명썼을 때는                     .멤버명   작성
+1-2, 포인터 변수명(주소)을 썼을 때는    ->멤버명   작성
+
+*/
