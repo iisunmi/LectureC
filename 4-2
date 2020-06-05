@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int drawline(int x);
+int main(void) {
+	int y, x = 0;
+	int a, b;
+
+	a = 1;
+	b = 10;
+	//for (b = 0; b < 20; b++) {
+		//for (x = 0; x < 20; x++) {
+	y = (a * x) + b;
+	//system("cls"); //출력전에 화면 한번씩 지우기
+	for (int r = 0; r < 20; r++) {      //행
+		for (int c = 0; c < 20; c++) {  //열
+
+			if (r < 5 && c < 5) {
+				printf("○");
+			}
+			else if (r == 2 && c == 3) {
+
+				printf("●");
+			}
+			else if (r == 2 && c == 4) {
+
+				printf("●");
+			}
+			else if (r == 2 && c == 5) {
+
+				printf("●");
+			}
+
+			printf("\n");
+		}
+
+		//}
+
+
+
+		return 0;
+	}
+}
+
+
+
+
+
+int main1(int argc, char* argv[]) {
+	
+	/*
+	drawline(1); //x값에 1을 넣는다는 뜻
+	drawline(2); //x값에 2을 넣는다는 뜻
+	drawline(4); //x값에 4을 넣는다는 뜻
+	*/
+
+	int a = 1; // 기울기변경
+	int b = 0; // y축을 따라 직선이 이동한다
+	int x = 0;
+	int y = (a*x)+b;
+	
+	for (x = 0; x < 10; x++) {
+		y = (a * x) + b;
+		printf("{%d,%d}\n", x, y);
+	}
+
+	return 0;
+}
+
+
+
+
+
+//화면에 선을 그리는 프로그램 구현하기
+//행렬 표현 시 반복문 2개 겹쳐서 만드는 코드 활용
+int drawline(int x) {
+	int y;
+    //int x=5;
+	y = (1 * x) + 5;
+	for (int r = 0; r < 10; r++) {
+		printf("[%2d]", r);
+		for (int c = 0; c < 10; c++) {
+			if (r == y && c ==x ) {
+				printf("##");
+			}
+			else {
+				printf("  ");
+			}
+	    }
+		printf("\n"); 
+	}
+
+	return 0;
+}
