@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <conio.h> //콘솔입출력 함수 제공/키보드에서의 입력을 정수처리
+
+//main함수 위에 정의하기
+int getValue(void)
+{
+	int result
+}
+int main(int argc, char** argv) {
+	fn();//함수 호출(실행)
+	
+	int rt = getValue();//실행 후 int형 값을 반환하는 함수이다
+	                    //()가 비어있으니 '전달'은 없다
+
+	int hap = Sum(2, 10);
+	int Sum(int a, int b);
+
+	int s = a + b;
+	return 0;
+}
+
+
+	/*
+	1. 소스 파일 만들기.c
+	2. 헤더 파일 붙이기.h
+	3. main 함수 만들기 int main() {return 0;}
+	4. main 함수 안에 실행 내용 작성하기
+
+	@arg : argc~인자의 개수/인자가 몇개있냐
+	       argv~문자열(들) 인자
+	 char** argv == char* argv []
+
+		   ※ 인자-콘솔에서 나열되는 데이터들
+     env 환경설정 내용을 보기위해 사용하는 인자
+	 
+
+
+	 함수 선언부 - {}앞까지 적어놓은 부분
+	 ex) 
+	 void fn(void):
+	 int Sum(int a, int b);// 전달되는 값을 받을 변수(매개변수)
+
+	 함수 정의부- {}안의 부분
+	 ex) 
+	 void fn(void):{
+
+	 }
+
+	 반환형(첫단어) 부분에 void을 쓸 때, return 키워드 생략가능함
+	 ※ return : 함수종료
+
+
+	*/
+
+
