@@ -1,0 +1,248 @@
+// library headers ////////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// global variables ///////////////////////////////////////
+
+
+// section function body //////////////////////////////////
+int string_def() {//***문자열의 마지막에 널문자가 있어야함을 꼭 기억하자
+	              //문자열을 저장하기 위해 필요한 것이 배열
+				  // 만들어진 배열길이 안에서 문자열길이는 조절되어 저장됨
+	//문자열 - 문자배열 -char[]
+	//배열명 - 주소(&[0])
+	//문자열의 처리는 [첫 글자에서부터 '/0'(NUL)(널문자)까지]: 가변길이
+	// ※ NULL과 NUL 구분하자
+	char str[80] = { "Korea 2020 fi" };  //=={0}
+
+	//문자열 출력하는 법 3가지.  "%s" || char* || for (하나씩 다 출력) 등등
+	//1)
+	printf("%s \n", str); //배열명(str)을 쓰면 이는 0번의 주소이기 때문에 [0]번~널문자 전까지 쭈욱 출력해줌
+
+	//2)
+	int v = puts(str); // 문자열 출력 함수 / str은 0번의 주소 == &[0]
+	printf("v : %d\n", v);
+
+	//3)
+	for (int i = 0; str[i] != '\0'; ++i) { //널문자면 종료한다는 뜻
+		putchar(str[i]);
+	}
+	putchar('\n');
+
+	//4)
+	//fputs();
+
+	return 0;
+}
+
+int string_input() {//문자열의 끝이 무엇인지를 반드시 알아야한다
+	//문자열을 저장하려면 char[](배열)이 필요
+	char str[80] = { 0 };
+	
+	//키보드입력받기
+	//1)단어단위로 뽑아서
+	while (0) {//원래는 1임, 1로 그대로 놔두면 다른 함수들이랑 같이 실행되니까 0으로 바꿨을 뿐
+		int v = scanf_s("%s", str, sizeof(str)); // &변수명 : 단어로 나누어 받는다 / str은 그자체가 주소라서 &를 붙이지 않는다
+							//***_s함수들은 주소와 크기를 전달한다
+		if (v == 0) { break; }
+		printf("v : %d\n", v);
+		//fputs(str, stdout /*where*/); // 키보드: stdin   모니터 : stdout(표준출력장치)
+		//fputs("\n", stdout); //fputs는 행내림 명령을 해줘야하지만 puts는 자동으로 행내림이 됨
+		puts(str);
+
+	} //반복을 종료하려면 어떻게 해야하지? 숙제?
+
+	//2)통으로 
+	//gets_s(str, sizeof(str)-1); // -1을 하는 이유 : 여유공간을 주기 위해서 함
+	//fgets(str,80,stdin);
+	printf("%s\n", str);
+
+	//3) 글자단위로 변경하고 확인처리할때
+	char ch;
+	int i = 0; 
+	while ((ch=getchar() != '\n') ){ //()과 =뒤의 값이 같으면 식이 종료된다 //엔터(\n)를 치면 종료된다
+		if (i == 0) {
+			if ('a'<=ch&&ch<= 'z') { //첫글자가 소문자이면 
+				ch -= 32; //대문자로 바꾸겠다
+			}
+		}
+		str[i] = ch;
+		++i;
+
+	}
+	//반드시 널문자로 끝나야하기 때문에 마지막에 str[i]=0; or '\0'을 표현해야한다.
+
+	return 0;
+
+}
+
+
+int ptr4string() {
+
+	char* p; // p는 포인터변수 , char형 변수의 주소   // 문자열을 저장한다는 말이 아니다!!! 그땐 배열이 있어야함
+	
+	//const : 변경하지 않는다
+	const char *cp; //***문자값을 변경하지 않음, 주소는 변경 가능
+	
+	/*
+	cp = 1004;
+	cp = 2004;
+	cp = 3004;
+	//*cp = 'A';   error
+	char* const ccp; // 문자값은 바꿀수 있어도, 주소는 변경 불가
+	ccp = 1004;
+	*ccp = 'A';
+	//const char* const ccp; //그냥 상수이다
+	*/
+
+	p = "korea 2020"; // p는 문자열의 시작주소를 저장할 뿐이다
+	*p = 'k'; //p가 가라키는 곳에 값을 저장한다
+	//""로 표현되는 문자열 상수는 변경할 수 없으므로 바로 위의 표현은 에러이다
+
+
+	return 0;
+}
+
+
+
+int string2pointer() {
+	//문자열과 포인터 같이 사용하기
+	char aStr[80] = "korea 2020"; //요소(aStr[80])는 배열 형태를 하고있다
+	char* pStr;
+	//=연산의 왼쪽 오른쪽 자료형 일치시키기
+	pStr = aStr;//pStr는 [0]번 요소의 주소 char*
+	pStr = &aStr[0];//pStr는 char형 변수(char aStr[80])의 주소
+	                //포인터변수명(pStr)을 배열명(실제론 아니지만)으로 생각해서 써라.
+	pStr[0] = 'A'; //aStr[0]
+	pStr[1] = 'B'; //aStr[1]
+
+	printf("%s \n", aStr);
+
+	char(*pp)[80];//pp는 포인터변수인데,80짜리 배열을 가리킨다는 뜻
+
+	pp = &aStr; //배열포인터에는 배열의 주소를 입력해야함
+	printf("%s\n", (*pp)); //(*pp)=pp[0]=aStr
+	//printf("%d\n", pp + 1);
+	//실제 계산되는 수식 : 현재주소+(1*sizeof(*주소))  //주소는 pp
+
+
+	return 0;
+}
+
+
+int op4pointer() {
+	//배열 요소번호와 포인터 연산의 관계
+	char str[80] = { 'k','o', 'r', 'e', 'a', '\n' };
+	char* p = &str[0]; //&str[0]=str
+	
+	
+	printf("%p-%c\n", str + 0, *(str + 0)); //+정수 : 더한 정수만큼 주소를 건너뛰어서 세라.
+	printf("%p-%c\n", str + 1, *(str + 1));
+	printf("%p-%c\n", str + 2, *(str + 2));
+	printf("%p-%c\n", str + 3, *(str + 3));
+	printf("%p-%c\n", str + 4, *(str + 4));
+	
+	
+	/*
+	printf("%p-%c\n", p + 0, *(p + 0)); //+정수 : 더한 정수만큼 주소를 건너뛰어서 세라.
+	printf("%p-%c\n", p + 1, *(p + 1));
+	printf("%p-%c\n", p + 2, *(p + 2));
+	printf("%p-%c\n", p + 3, *(p + 3));
+	printf("%p-%c\n", p + 4, *(p + 4));
+	
+	*/
+	
+	
+	/*
+
+	printf("%p-%c\n", &str[0], str[0]);
+	printf("%p-%c\n", &str[1], str[1]);
+	printf("%p-%c\n", &str[2], str[2]);
+	printf("%p-%c\n", &str[3], str[3]);
+	printf("%p-%c\n", &str[4], str[4]);
+	*/
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+// start program //////////////////////////////////////////
+int main(int argc, char** argv) {
+
+	//string2pointer(); //문자열과 포인터변수
+	op4pointer();
+
+	return 0;
+}
+// end program
+
+
+
+
+
+
+
+
+/*
+// start program //////////////////////////////////////////
+int main(int argc, char** argv) {
+
+	
+	ptr4string(); //문자열은 주소로 다룬다
+
+	return 0;
+}
+// end program
+*/
+
+/*
+// start program //////////////////////////////////////////
+int main(int argc, char** argv) {
+
+	string_input(); //문자열의 끝이 무엇인지를 반드시 알아야한다
+	
+
+	return 0;
+}
+// end program
+
+
+*/
+
+
+
+
+
+/*
+
+
+
+// start program //////////////////////////////////////////
+int main(int argc, char** argv) {
+
+	string_def();//***문자열의 마지막에 널문자가 있어야함을 꼭 기억하자
+
+	return 0;
+}
+// end program
+
+*/
+
+
+
+
+
+
+/*
+	문자열 : '\0' 을 끝으로 하는 문자 배열
+	문자열 처리를 위한 포인터
+	동적할당 : 포인터를 이용하여 실행 중 메모리의 생성과 삭제 관리 ~배열길이를 그때그때 조절가능.
+		배열, 구조체, 구조체 배열
+*/
