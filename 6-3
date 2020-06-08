@@ -1,0 +1,161 @@
+// library headers ////////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// global variables ///////////////////////////////////////
+#pragma pack(1) // 사이즈를 정확히 봐야할때 쓰는 명령
+typedef struct _fileheade{
+	char data[14];
+}BFH;
+
+typedef struct _infoheader{
+	char data[40];
+}BIH;
+
+typedef struct _rgb{
+	char data[3];
+}RGB;
+
+typedef struct _bmpImage {
+	BFH fh;
+	BIH ih;
+	RGB* table;
+}BMP;
+
+// section function body //////////////////////////////////
+
+int string_array() {
+
+	//(적은 개수의 문자열) 문자열 3개를 입력받아 출력하세요
+
+	char s1[80];
+	char s2[80];
+	char s3[80];
+
+	printf("string > ");
+	fgets(s1, sizeof(s1), stdin);
+
+	printf("string > ");
+	fgets(s2, sizeof(s2), stdin);
+
+	printf("string > ");
+	fgets(s3, sizeof(s3), stdin);
+
+	fputs(s1, stdout); //f는 file에 대한것. (,FILE stream 에는 어디에서 출력하는지를 작성 , 여기선 stdout)
+	fputs(s2, stdout);
+	fputs(s3, stdout);
+	
+
+	return 0;
+}
+
+int string_loop() {
+	//(엄청 많은 개수의 문자열)문자열 5개를 저장하는 배열
+	char list[5/*문자열개수*/][80/*각 문자열의 길이*/]; //5행80열짜리 배열 생성/문자열이 5개가 있다
+	for (int i = 0; i < 5; i++) {
+		printf("string > ");
+		fgets(list[i], 80/*sizeof(list[i])*/, stdin); // 문자열을 저장할 주소를 주는것임
+	}
+	for (int i = 0; i < 5; i++) {
+		fputs(list[i], stdout); 
+	}
+
+	return 0;
+}
+
+
+int string_points() {
+	//포인터 배열은 포인터 변수들을 여러가지 가지고 있다는 뜻이다
+	char* pl[5]; // //포인터 변수 5개를 만든 것이다. 
+	for (int i = 0; i < 5;i++) {
+		printf("string > ");
+		pl[i] = (char*)malloc(80); //char[80] 포인터를 5개 가지고 있는 배열이다 / pl은 배열명이다
+		fgets(pl[i], 80/*sizeof(pl[i])*/, stdin);
+	}
+	for (int i = 0; i < 5; i++) {
+		fputs(pl[i], stdout);
+	}
+
+	//동적함수 사용시
+	for (int i = 0; i < 5; i++) {
+		free(pl[i]);
+	}
+
+
+	return 0;
+}
+
+
+int string_dynamic() {
+	char** ap = NULL; //포인터배열 (동적할당)
+	int count;
+	printf("문자열 입력개수 : ");
+	scanf_s("%d", &count);
+	ap = (char**)malloc(count*sizeof(*ap));
+	for (int i = 0; i < count - 1; i++) {
+		printf("string > ");
+		ap[i] = (char*)malloc(80);
+		fgets(ap[i], 80, stdin);
+	}
+	for (int i = 0; i < count - 1; i++) {
+		fputs(ap[i], stdout);
+	}
+
+	for (int i = 0; i < count - 1; i++) {
+		free(ap[i]);   ///반드시 포인터들 요소부터  먼저 해제하자!!!!!!!!
+	}
+
+	free(ap); // 그 다음에 배열을 해제하자
+
+
+	return 0;
+
+}
+
+
+
+
+
+
+// start program //////////////////////////////////////////
+
+
+int main(int argc, char** argv) {
+	
+	//string_array();
+	//string_loop();
+	//string_points();
+	string_dynamic();
+	
+	return 0;
+
+}
+
+
+
+
+
+int main111(void) {
+	BMP bmp = { 0 }; // bmp = 구조체형 변수를 만든것
+	printf("%d \n", sizeof(BMP));
+	printf("%d \n", sizeof(bmp));
+
+	//bmp의 멤버인 table에 (table이 RGB형 포인터임) RGB를 요소로 하는 길이 512인 배열을 생성해라.
+	//정적할당(배열의 길이를 이미 알고 있다)
+	//RGB pixel[512];
+	//bmp.table = pixel; //pixel +0==&pixel[0]
+
+	//동적할당이 필요한 경우
+	int countsOfpixel = 1024 * 768 * 3; // 가로*세로 로 픽셀개수를 센다. 배열공간을 확보한다
+	bmp.table = (RGB*)malloc(countsOfpixel * sizeof(RGB));
+
+	//main함수 끝나기 전에 해제를 하라.
+	free(bmp.table);
+
+
+
+
+	return 0;
+}
+//end program
