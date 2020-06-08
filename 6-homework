@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+int main(void) {//제어문 연습임
+
+	char ch;
+	int digit = 0; //숫자개수
+	int alpha = 0; //영문자개수
+	int words = 0; // 띄어쓰기 단위로 되어있는 거
+	int space = 0; 
+	int numbers = 0; //정수들의 총합  (안해도됨)
+
+	while ((ch=getchar()) != EOF) { //eof가 아니면 계속 입력을 받는다 //eof는 ctrl+z를 누르면 입력중단이 됨
+		if (ch >= '0' && ch <= '9') { //숫자일때
+			digit++;
+		}
+		else if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) { // 영문자일때
+            alpha++;
+        }
+       
+		//공백세기
+		for (int i = 0; i < ch; ch++) {//단어일때  
+			if (ch == '')
+				space++;
+		}
+		words = space + 1;
+
+		//공백만 넣었을 때 단어로 인식하지 않는다
+
+		if (words == space) {
+			words = 0;
+			printf("%d", words);
+		}
+		else if()
+
+
+
+
+	}
+	printf("숫자 : %d개\n 영문자 : %d개\n 단어 : %d개\n",digit, alpha, words);
+
+	return 0;
+}
+
+
+
+
