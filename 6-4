@@ -1,0 +1,48 @@
+// library headers ////////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#pragma warning(disable:4996)
+
+// global variables ///////////////////////////////////////
+
+
+// section function body //////////////////////////////////
+char*toString() {
+	//지역변수는 함수 종료 시 사라진다
+	//동적할당은 힙에 생성되어서 함수와는 관계없이 유지가능하다
+	char *name=(char*)malloc(80);
+
+	//문자열을 저장(대입)한다는 것은
+	//name = "jangs ma"; // 배열명은 상수이므로 대입연산은 불가하다
+	strncpy(name, "jangs ma",80); // 문자열을 배열에 저장할때는 함수를 이용해서 복사한다는 개념으로 사용하라
+
+	return name;
+}
+int getString(char*param,int size) {
+	int i;
+	for (int i = 0; i < size ; i++) {
+		param[i] = '0' + i;
+	}
+	param[i-1] = 0;
+	return 0;
+}
+
+// start program //////////////////////////////////////////
+int main(int argc, char** argv) {
+
+	char* p = toString();
+	if (p == NULL) { //null 체크하기
+		printf("문자열이 없다");
+	}
+	else {
+		printf("%s \n", p);
+		free(p);
+	}
+
+	char name[80];
+	getString(name,80);// 배열명, 길이
+	printf("%s \n", name);
+	return 0;
+}
+// end program
