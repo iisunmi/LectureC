@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h> 
+
+int main(void) { // up 72 /down 80 /left 75 /right 77/
+
+	printf("%d\n", 0xE0);
+
+	char ch = _getch();
+	printf("%d\n", ch);
+
+	ch = _getch();
+	printf("%d\n", ch);
+
+	return 0;
+}
