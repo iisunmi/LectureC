@@ -1,0 +1,37 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#define SIZE 5
+
+
+struct address {
+	char name[20];
+	int num;
+	char sex[8];
+};
+
+//구조체의 배열
+int main(void) {
+
+	struct address a[SIZE];
+	int i;
+
+	for (i = 0; i < SIZE; i++) {
+		printf("이름을 입력하세요 : ");
+		scanf("%s", &a[i].name);
+		
+		printf("전화번호를 입력하세요 : ");
+		scanf("%d", &a[i].num);
+
+		printf("성별을 입력하세요 : ");
+		scanf("%s", &a[i].sex);
+	}
+
+	//출력하기
+	for (i = 0; i < SIZE; i++) {
+		printf("이름 : %s, 전화번호 : %d, 성별 : %s\n", a[i].name, a[i].num, a[i].sex);
+	}
+
+
+	return 0;
+}
