@@ -82,25 +82,18 @@ int main(void) {
             printf("\t\t\t\t\t검색할 이름을 입력해주세요 : ");
             scanf("%s", &name);
 
-            while (1) {
-                int id = strcmp(dart[i].name, name);
+            
+                int cntid =0;
                 for (i = 0; i < MAX_LENGTH; i++) {
                     if (strcmp(dart[i].name, name) == 0) {
                         printf("%d. 이름 : %s  전화번호 : %d 성별 : %s\n\n\n\n", i + 1, dart[i].name, dart[i].num, dart[i].sex);
+                        cntid++;
                     }
                 }
 
-                if (id > 0) {
-                    printf("정보가 없습니다.\n");
-                    break;
+                if (cntid = 0) {
+                    printf("정보가 없습니다.\n\n\n\n");
                 }
-
-                else if (id < 0) {
-                    printf("정보가 없습니다.\n");
-                    break;
-                }
-
-            }
 
 
         }
@@ -114,9 +107,9 @@ int main(void) {
             printf("        #  #   #                     ########    #       #  \n");
             printf("        #  #   #    ######                  #    #####   #  \n");
             printf("        #  #   #         #                  #               \n");
-            printf("        #  #   #    ######                  #      ######   \n");
-            printf("           #   #    #                       #      #    #   \n");
-            printf("           #   #    ######           ########      ######   \n");
+            printf("        #  #   #    ######                  #      #######  \n");
+            printf("           #   #    #                       #      #     #  \n");
+            printf("           #   #    ######           ########      #######  \n");
             break;
         }
 
