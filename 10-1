@@ -1,0 +1,12 @@
+        printf("\t\t\t▽ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▽\t\n\n");
+        printf("\t\t\t△                                                          ▽\t\n\n");
+        printf("\t\t\t△                    ① 주소록 추가                        ▽\t\n\n");
+        printf("\t\t\t△                                                          ▽\t\n\n");
+        printf("\t\t\t△                    ② 주소록 전체보기                    ▽\t\n\n");
+        printf("\t\t\t△                                                          ▽\t\n\n");
+        printf("\t\t\t△                    ③ 주소록 검색                        ▽\t\n\n");
+        printf("\t\t\t△                                                          ▽\t\n\n");
+        printf("\t\t\t△                    ④ 종료                               ▽\t\n\n");
+        printf("\t\t\t△                                                          ▽\t\n\n");
+        printf("\t\t\t△ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▶ ▷ ▽\n\n");
+        printf("                                                             MADE BY 개발3팀 (박성수, 안정현, 박지유, 이선미)\n\n");
