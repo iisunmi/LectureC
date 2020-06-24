@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+struct address[30]{
+	char name[30]
+	int num[30]
+	char sex[30]
+};
+
+struct address a={0};
+
+int main(){
+	
+	int choose;
+	int count=0;
+	
+	printf("1. 주소록 입력하기"\n);
+	printf("2. 주소록 전체보기[%d/20]"\n);
+	printf("3. 주소록 검색하기"\n);
+	printf("4. 주소록 종료하기"\n);
+	
+	if(choose==1){
+		
+		printf("주소록을 추가중입니다.\n\n");
+		
+	
+		
+		printf("이름을 입력하세요 >> ");
+		scanf("%s",address[count].name);
+		printf("번호를 입력하세요 >> ");
+		scanf("%d",address[count].num);
+		printf("성별을 입력하세요 >> ");
+		scanf("%s",address[count].sex);
+		printf("------------------------------\n");
+		
+		count++;
+	}
+	
+	if(choose==2){
+		for(int i=0;i<count;i++){
+			
+		
+		}
+		printf("%d. 이름 : %s, 번호 : %d, 성별 : %s",i+1,address[i].name,address[i].num,address[i].sex);
+		
+	}
+	
+	
+	int cntid=0;
+	if(choose==3){
+		for(){
+			if(strcmp(adress[name],name)==0){
+				
+			}
+		}
+		
+		
+	}
+	 
+	 if(cntid==0){
+	 	printf("정보가 없습니다.\n");
+	 }
+	 
+	 if(choose==4)
+	 break;
+}
